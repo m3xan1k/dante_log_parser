@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="h1 text-center">Dante Log Parser</h1>
+
+<div class="table table-striped">
+  <h2 class="text-center">TOP</h2>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th class="scope">ip-address</th>
+        <th class="scope">connection count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in count %}
+      {% if event[1] < 50 %}
+        <tr class="table-success">
+      {% elif 10 < event[1] < 100 %}
+        <tr class="table-warning">
+      {% else %}
+        <tr class="table-danger">
+      {% endif %}
+        <td>{{ event[0] }}</td>
+        <td>{{ event[1] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

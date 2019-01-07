@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="h1 text-center">Dante Log Parser</h1>
+
+
+<div class="table table-striped">
+  <h2>Вы смотрите данные за {{ day }}</h2>
+  <p class="text-center">Not Authentic</p>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th class="scope">ip-address</th>
+        <th class="scope">username</th>
+        <th class="scope">connection count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in not_authentic  %}
+      {% if event[1] < 10 %}
+        <tr class="table-success">
+      {% elif 10 < event[1] < 30 %}
+        <tr class="table-warning">
+      {% else %}
+        <tr class="table-danger">
+      {% endif %}
+        <td>{{ event[0][0] }}</td>
+        <td>{{ event[0][1] }}</td>
+        <td>{{ event[1] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="table table-striped">
+  <p class="text-center">Password Failed</p>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th class="scope">ip-address</th>
+        <th class="scope">username</th>
+        <th class="scope">connection count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in password_fail  %}
+      {% if event[1] < 10 %}
+        <tr class="table-success">
+      {% elif 10 < event[1] < 30 %}
+        <tr class="table-warning">
+      {% else %}
+        <tr class="table-danger">
+      {% endif %}
+        <td>{{ event[0][0] }}</td>
+        <td>{{ event[0][1] }}</td>
+        <td>{{ event[1] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="table table-striped">
+  <p class="text-center">Connections</p>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th class="scope">ip-address</th>
+        <th class="scope">username</th>
+        <th class="scope">megabytes</th>
+        <th class="scope">connection count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ip in connections  %}
+      {% if connections[ip]["connections"] < 100 %}
+        <tr class="table-success">
+      {% elif 10 < connections[ip]["connections"] < 1000 %}
+        <tr class="table-warning">
+      {% else %}
+        <tr class="table-danger">
+      {% endif %}
+        <td>{{ ip }}</td>
+        <td>{{ connections[ip]["username"] }}</td>
+        <td>{{ connections[ip]["megabytes"] }}</td>
+        <td>{{ connections[ip]["connections"] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="text-center">
+<a href="/{{ month }}" class="btn btn-outline-success" role="button" aria-pressed="true">Назад</a>
+{% for i, date in days.items() %}
+{% if date == day %}
+<a href="/{{ month }}/{{ days[i - 1] }}" class="btn btn-outline-success" role="button" aria-pressed="true">Предыдущий день</a>
+<a href="/{{ month }}/{{ days[i + 1] }}" class="btn btn-outline-success" role="button" aria-pressed="true">Следующий день</a>
+{% endif %}
+{% endfor %}
+</div>
+
+
+
+
+{% endblock %}

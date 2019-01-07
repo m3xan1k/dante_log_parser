@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="h1 text-center">Dante Log Parser</h1>
+
+
+
+<div class="table text-center">
+  <h2 class="text-center">Привет</h2>
+  <div class="text-center">
+    <a href="/top" type="button" class="btn btn-primary btn-lg btn-block" role="button">JUST SHOW ME TOP</a>
+  </div>
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th class="scope">Choose month</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for month in months %}
+      <tr>
+          <td class="scope" onclick="document.location = '/{{ month }}';">{{ month }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+
+
+{% endblock %}
